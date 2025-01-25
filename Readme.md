@@ -49,5 +49,9 @@ Every next launch use `docker compose up -d`
 - Introduce proper task planner to import company names and symbols.
 - Consider more aggressive response caching for API.
 - Add logs.
-- Improve `.env` management
+- Improve `.env` management.
+- Add linters.
+- Add code-fixers.
+- Add pipelines to run tests.
+- Resolve deprecations.
 - etc ...
