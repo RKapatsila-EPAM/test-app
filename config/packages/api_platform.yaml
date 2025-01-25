@@ -1,0 +1,12 @@
+api_platform:
+    title: API Platform
+    version: 1.0.0
+    description: 'API demo.'
+    use_symfony_listeners: true
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity', '%kernel.project_dir%/src', ]
+    defaults:
+        stateless: true
+        pagination_enabled: false
+        cache_headers:
+            vary: ['Content-Type', 'Authorization', 'Origin']

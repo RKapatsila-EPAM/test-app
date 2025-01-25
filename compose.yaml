@@ -1,6 +1,5 @@
-
 services:
-###> doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-16}-alpine
     environment:
@@ -9,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
       POSTGRES_USER: ${POSTGRES_USER:-app}
     healthcheck:
-      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
+      test: [ "CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}" ]
       timeout: 5s
       retries: 5
       start_period: 60s
@@ -17,9 +16,40 @@ services:
       - database_data:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+  ###< doctrine/doctrine-bundle ###
+  
+  php_env:
+    image: php_env
+    container_name: php_env
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    depends_on:
+      - database
+    environment:
+      COMPOSE_PROJECT_NAME: "xm_app"
+    volumes:
+      - ./:/opt/service/
+    expose:
+      - "80"
+      - "8080"
+    ports:
+      - "80:80"
+      - "8080:8080"
+  
+  php_queue_env:
+    image: php_env
+    container_name: php_queue_env
+    depends_on:
+      - database
+    environment:
+      COMPOSE_PROJECT_NAME: "xm_app_queue"
+    volumes:
+      - ./:/opt/service/
+    command: php bin/console messenger:consume async
+    restart: always
 
 volumes:
-###> doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
   database_data:
 ###< doctrine/doctrine-bundle ###

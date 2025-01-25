@@ -20,5 +20,22 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\CompanyQuote\Client\Mapper\MapperInterface:
+        class: App\CompanyQuote\Client\Mapper\Mapper
+
+
+    App\CompanyQuote\Client\ClientInterface:
+        class: App\CompanyQuote\Client\HttpClient
+        arguments:
+            $httpClient: '@yh_finance.client'
+
+    App\CompanyQuote\CompanyQuoteServiceInterface:
+        class: App\CompanyQuote\CompanyQuoteService
+
+    App\Mailer\MailerServiceInterface:
+        class: App\Mailer\MailerService
+    
+    App\Mailer\CsvReportGenerator: ~
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

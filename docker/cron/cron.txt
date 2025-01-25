@@ -1,0 +1,1 @@
+* * * * * echo "$(date) - run" >> /opt/service/logs.txt

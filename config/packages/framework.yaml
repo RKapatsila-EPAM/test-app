@@ -8,6 +8,14 @@ framework:
     #esi: true
     #fragments: true
 
+    http_client:
+        scoped_clients:
+            yh_finance.client:
+                base_uri: 'https://yh-finance.p.rapidapi.com'
+                headers:
+                    x-rapidapi-host: 'yh-finance.p.rapidapi.com'
+                    x-rapidapi-key: '%env(YH_FINANCE_API_KEY)%'
+
 when@test:
     framework:
         test: true
