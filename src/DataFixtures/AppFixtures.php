@@ -16,8 +16,8 @@ class AppFixtures extends Fixture
         $manager->persist($company);
 
         $company = new Company();
-        $company->setName('Company 2');
-        $company->setSymbol('SDBL_2');
+        $company->setName('Apple Inc.');
+        $company->setSymbol('AAPL');
         $manager->persist($company);
 
         $manager->flush();
