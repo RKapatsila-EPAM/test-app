@@ -33,7 +33,7 @@ Every next launch use `docker compose up -d`
 - `docker compose up -d`
 
 #### Check code coverage:
-- `docker exec -it php_env php bin/phpunit --coverage-text`
+- `docker exec -e XDEBUG_MODE=coverage -it php_env php bin/phpunit --coverage-text`
 
 ### Web
 - [Simple endpoint to do all the tasks](http://localhost/company?symbol=ERIC&startDate=2024-11-01&endDate=2025-01-01&email=r.kapatsila@gmail.com)
