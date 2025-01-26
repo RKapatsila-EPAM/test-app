@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
 		nginx-full \
 		bash \
 		cron \
+		nano \
 	&& docker-php-ext-install \
         sodium \
         pdo \
@@ -34,9 +35,6 @@ RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled && rm
 
 RUN mkdir -p /opt/service /var/www/.composer /var/www/.config;chown -R www-data:www-data /opt/service /var/www/.composer /var/www/.config
 
-# COPY ./init.sh /init.sh
-# RUN chmod +x /init.sh
-
 RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests supervisor
 COPY docker/supervisord/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
@@ -51,6 +49,9 @@ COPY --chown=www-data:www-data ./.env ./.env.local
 RUN composer install
 
 USER root
+
+COPY ./docker/cron/cron.txt /home/cron.txt
+RUN crontab -u root /home/cron.txt && rm /home/cron.txt
 
 EXPOSE 9000
 

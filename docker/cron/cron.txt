@@ -1,1 +1,1 @@
-* * * * * echo "$(date) - run" >> /opt/service/logs.txt
+*/15 * * * * /usr/local/bin/php /opt/service/bin/console import:company-symbols https://pkgstore.datahub.io/core/nasdaq-listings/nasdaq-listed_json/data/a5bc7580d6176d60ac0b2142ca8d7df6/nasdaq-listed_json.json

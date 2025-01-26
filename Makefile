@@ -18,6 +18,11 @@ build: stop
 copy-env-file:
 	@cp ./.env ./.env.local || true
 
+update-cron:
+	docker exec -it php_env crontab -u root ./docker/cron/cron.txt
+	docker exec -it php_env supervisorctl restart cron
+
+
 test:
 	@docker container stop php_queue_env
 	@docker exec -it php_env php bin/console doctrine:database:drop --force --env=test || true

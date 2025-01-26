@@ -18,7 +18,8 @@ Every next launch use `docker compose up -d`
 
 #### Note
 Data has to be imported via `docker exec -it php_env php bin/console import:company-symbols https://pkgstore.datahub.io/core/nasdaq-listings/nasdaq-listed_json/data/a5bc7580d6176d60ac0b2142ca8d7df6/nasdaq-listed_json.json`, othervise app will always return 400 error.
-Ideally this should be configured as scheduled task, but at this moment it was not done for dev environment.
+Command is configured as scheduled task to be executed every 15 minutes via cron.
+To change that config please edit `docker/cron/cron.txt` and run `make update-cron` afterwards.
 
 ## How to test?
 
